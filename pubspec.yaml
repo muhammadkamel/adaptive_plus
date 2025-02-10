@@ -1,8 +1,8 @@
 name: screen_adaptive_plus
-description: A flutter plugin for adapting screen and font size.Guaranteed to look good on different models
+description: A new Flutter package project.
 version: 1.0.0
 environment:
-  sdk: ">=3.6.0 <4.0.0"
+  sdk: ">=3.6.1 <4.0.0"
 
 dependencies:
   flutter:
