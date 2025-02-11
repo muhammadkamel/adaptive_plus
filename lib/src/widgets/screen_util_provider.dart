@@ -60,7 +60,10 @@ class ScreenUtilProvider extends InheritedModel<_ScreenUtilProviderAspect> {
   }
 
   static double heightScaleOf(BuildContext context) {
-    return _of(context, _ScreenUtilProviderAspect.height).heightScale;
+    final heightScale =
+        _of(context, _ScreenUtilProviderAspect.height).heightScale;
+    print('heightScaleOf: $heightScale');
+    return heightScale;
   }
 
   static double radiusScaleOf(BuildContext context) {
