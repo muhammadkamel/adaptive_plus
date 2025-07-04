@@ -1,42 +1,43 @@
 import 'dart:math' show min;
 
+import 'package:adaptive_plus/src/models/adaptive_plus_options.dart';
+import 'package:adaptive_plus/src/models/adaptive_plus_view.dart';
+import 'package:adaptive_plus/src/utils/adaptive_plus_scaler.dart';
+import 'package:adaptive_plus/src/utils/default_adaptive_plus_scaler.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-import './options.dart';
-import './view.dart';
-import '../utils/scaler.dart';
-
-class ScreenUtilData {
+@immutable
+class AdaptivePlusData extends Equatable {
   final double fontSizeScale;
   final double widthScale;
   final double heightScale;
   final double insetScale;
   final double radiusScale;
 
-  const ScreenUtilData({
+  const AdaptivePlusData({
     double? fontSizeScale,
     double? widthScale,
     double? heightScale,
     double? paddingScale,
     double? radiusScale,
-  })  : this.fontSizeScale =
-            fontSizeScale == null || fontSizeScale <= 0 ? 1 : fontSizeScale,
-        this.widthScale =
-            widthScale == null || widthScale <= 0 ? 1 : widthScale,
-        this.heightScale =
-            heightScale == null || heightScale <= 0 ? 1 : heightScale,
-        this.insetScale =
-            paddingScale == null || paddingScale <= 0 ? 1 : paddingScale,
-        this.radiusScale =
-            radiusScale == null || radiusScale <= 0 ? 1 : radiusScale;
+  }) : fontSizeScale = fontSizeScale == null || fontSizeScale <= 0
+           ? 1
+           : fontSizeScale,
+       widthScale = widthScale == null || widthScale <= 0 ? 1 : widthScale,
+       heightScale = heightScale == null || heightScale <= 0 ? 1 : heightScale,
+       insetScale = paddingScale == null || paddingScale <= 0
+           ? 1
+           : paddingScale,
+       radiusScale = radiusScale == null || radiusScale <= 0 ? 1 : radiusScale;
 
-  factory ScreenUtilData.from({
+  factory AdaptivePlusData.from({
     required Size screenSize,
     Orientation orientation = Orientation.portrait,
-    required ScreenUtilOptions options,
-    ScreenUtilScaler scaler = const DefaultScreenUtilScaler(),
+    required AdaptivePlusOptions options,
+    AdaptivePlusScaler scaler = const DefaultAdaptivePlusScaler(),
   }) {
-    final view = ScreenUtilView(
+    final view = AdaptivePlusView(
       width: screenSize.width,
       height: screenSize.height,
       orientation: orientation,
@@ -48,7 +49,7 @@ class ScreenUtilData {
     final paddingScale = scaler.getPaddingScaleFactor(view, options);
     final radiusScale = min(widthScale, heightScale);
 
-    return ScreenUtilData(
+    return AdaptivePlusData(
       fontSizeScale: fontSizeScale,
       widthScale: widthScale,
       heightScale: heightScale,
@@ -57,12 +58,12 @@ class ScreenUtilData {
     );
   }
 
-  factory ScreenUtilData.fromContext({
+  factory AdaptivePlusData.fromContext({
     required BuildContext context,
-    required ScreenUtilOptions options,
-    ScreenUtilScaler scaler = const DefaultScreenUtilScaler(),
+    required AdaptivePlusOptions options,
+    AdaptivePlusScaler scaler = const DefaultAdaptivePlusScaler(),
   }) {
-    return ScreenUtilData.from(
+    return AdaptivePlusData.from(
       options: options,
       screenSize: MediaQuery.sizeOf(context),
       orientation: MediaQuery.orientationOf(context),
@@ -72,18 +73,18 @@ class ScreenUtilData {
 
   @override
   int get hashCode => Object.hash(
-        fontSizeScale,
-        widthScale,
-        heightScale,
-        insetScale,
-        radiusScale,
-      );
+    fontSizeScale,
+    widthScale,
+    heightScale,
+    insetScale,
+    radiusScale,
+  );
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ScreenUtilData &&
+    return other is AdaptivePlusData &&
         other.fontSizeScale == fontSizeScale &&
         other.widthScale == widthScale &&
         other.heightScale == heightScale &&
@@ -93,7 +94,7 @@ class ScreenUtilData {
 
   @override
   String toString() {
-    return """ScreenUtilData(
+    return """AdaptivePlusData(
       fontSizeScale: $fontSizeScale,
       widthScale: $widthScale,
       heightScale: $heightScale,
@@ -121,8 +122,13 @@ class ScreenUtilData {
   double i(num padding) {
     return padding * insetScale;
   }
-}
 
-class EmptyScreenUtilData extends ScreenUtilData {
-  const EmptyScreenUtilData() : super();
+  @override
+  List<Object?> get props => [
+    fontSizeScale,
+    widthScale,
+    heightScale,
+    insetScale,
+    radiusScale,
+  ];
 }

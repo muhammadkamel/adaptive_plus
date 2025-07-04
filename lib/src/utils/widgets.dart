@@ -1,15 +1,21 @@
+import 'package:adaptive_plus/adaptive_plus.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:screen_adaptive_plus/screen_adaptive_plus.dart';
 
 class RStatelessElement extends ComponentElement {
   RStatelessElement(RStatelessWidget super.widget);
 
   @override
   Widget build() {
-    final data = ScreenUtilProvider.of(this);
-    return (widget as RStatelessWidget)
-        .build(this, data.sp, data.w, data.h, data.r, data.i);
+    final data = AdaptivePlusProvider.of(this);
+    return (widget as RStatelessWidget).build(
+      this,
+      data.sp,
+      data.w,
+      data.h,
+      data.r,
+      data.i,
+    );
   }
 }
 
@@ -46,34 +52,24 @@ class MyStatelessWidget extends RStatelessWidget {
     return Container(
       width: w(100),
       height: h(100),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(r(10)),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(r(10))),
       margin: EdgeInsets.all(i(10)),
       child: Center(
-        child: Text(
-          'Hello World',
-          style: TextStyle(fontSize: sp(16)),
-        ),
+        child: Text('Hello World', style: TextStyle(fontSize: sp(16))),
       ),
     );
   }
 
   // double sp(num fontSize) =>
-  //     ScreenUtilProvider.of((key as GlobalKey).currentContext).sp(fontSize);
-  // double w(num width) => ScreenUtilProvider.of(context).w(width);
-  // double h(num height) => ScreenUtilProvider.of(context).h(height);
-  // double r(num radius) => ScreenUtilProvider.of(context).r(radius);
-  // double i(num padding) => ScreenUtilProvider.of(context).i(padding);
+  //     AdaptivePlusProvider.of((key as GlobalKey).currentContext).sp(fontSize);
+  // double w(num width) => AdaptivePlusProvider.of(context).w(width);
+  // double h(num height) => AdaptivePlusProvider.of(context).h(height);
+  // double r(num radius) => AdaptivePlusProvider.of(context).r(radius);
+  // double i(num padding) => AdaptivePlusProvider.of(context).i(padding);
 }
 
 class RSizedBox extends SizedBox {
-  const RSizedBox({
-    super.key,
-    super.width,
-    super.height,
-    super.child,
-  });
+  const RSizedBox({super.key, super.width, super.height, super.child});
 
   @override
   RenderConstrainedBox createRenderObject(BuildContext context) {
@@ -91,11 +87,7 @@ class RSizedBox extends SizedBox {
 }
 
 class RPadding extends Padding {
-  const RPadding({
-    super.key,
-    required super.padding,
-    super.child,
-  });
+  const RPadding({super.key, required super.padding, super.child});
 
   @override
   RenderPadding createRenderObject(BuildContext context) {

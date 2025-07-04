@@ -1,5 +1,5 @@
+import 'package:adaptive_plus/adaptive_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:screen_adaptive_plus/screen_adaptive_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'home.test.dart';
@@ -11,8 +11,8 @@ void main() {
 
   group('[Test calculations]', () {
     test('Test smaller size', () {
-      final data = ScreenUtilData.from(
-        options: ScreenUtilOptions(designSize: uiSize),
+      final data = AdaptivePlusData.from(
+        options: AdaptivePlusOptions(designSize: uiSize),
         screenSize: smallerDeviceSize,
       );
 
@@ -25,8 +25,8 @@ void main() {
     });
 
     test('Test bigger size', () {
-      final data = ScreenUtilData.from(
-        options: ScreenUtilOptions(designSize: uiSize),
+      final data = AdaptivePlusData.from(
+        options: AdaptivePlusOptions(designSize: uiSize),
         screenSize: biggerDeviceSize,
       );
 
@@ -41,14 +41,18 @@ void main() {
 
   group('[Test overflow]', () {
     testWidgets('Test overflow width', (tester) async {
-      await tester.pumpWidget(ScreenUtil(
-        options: ScreenUtilOptions(designSize: uiSize),
-        child: Builder(builder: (context) {
-          return MaterialApp(
-            home: WidgetTest(width: () => context.w(uiSize.width)),
-          );
-        }),
-      ));
+      await tester.pumpWidget(
+        AdaptivePlus(
+          options: AdaptivePlusOptions(designSize: uiSize),
+          child: Builder(
+            builder: (context) {
+              return MaterialApp(
+                home: WidgetTest(width: () => context.w(uiSize.width)),
+              );
+            },
+          ),
+        ),
+      );
 
       // Wait until all widget rendered
       // await tester.pumpAndSettle();
@@ -58,14 +62,18 @@ void main() {
     });
 
     testWidgets('Test overflow height', (tester) async {
-      await tester.pumpWidget(ScreenUtil(
-        options: ScreenUtilOptions(designSize: uiSize),
-        child: Builder(builder: (context) {
-          return MaterialApp(
-            home: WidgetTest(height: () => context.h(uiSize.height)),
-          );
-        }),
-      ));
+      await tester.pumpWidget(
+        AdaptivePlus(
+          options: AdaptivePlusOptions(designSize: uiSize),
+          child: Builder(
+            builder: (context) {
+              return MaterialApp(
+                home: WidgetTest(height: () => context.h(uiSize.height)),
+              );
+            },
+          ),
+        ),
+      );
 
       // Wait until all widget rendered
       // await tester.pumpAndSettle();
@@ -82,40 +90,39 @@ void main() {
 
     Finder textField() => find.byKey(textFieldKey);
 
-    await tester.pumpWidget(ScreenUtil(
-      options: ScreenUtilOptions(designSize: uiSize),
-      child: MaterialApp(
-        home: Scaffold(
-          body: Builder(
-            builder: (context) {
-              buildCountNotifier.value += 1;
+    await tester.pumpWidget(
+      AdaptivePlus(
+        options: AdaptivePlusOptions(designSize: uiSize),
+        child: MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) {
+                buildCountNotifier.value += 1;
 
-              assert(
-                context.w(uiSize.width) == MediaQuery.of(context).size.width,
-                'ScreenUtil width must be equal to MediaQuery width',
-              );
+                assert(
+                  context.w(uiSize.width) == MediaQuery.of(context).size.width,
+                  'AdaptivePlus width must be equal to MediaQuery width',
+                );
 
-              return SizedBox(
-                width: context.w(uiSize.width),
-                height: context.h(uiSize.height),
-                child: Column(
-                  children: [
-                    ValueListenableBuilder<int>(
-                      valueListenable: buildCountNotifier,
-                      builder: (_, count, __) => Text('Built count: $count'),
-                    ),
-                    TextField(
-                      key: textFieldKey,
-                      focusNode: focusNode,
-                    ),
-                  ],
-                ),
-              );
-            },
+                return SizedBox(
+                  width: context.w(uiSize.width),
+                  height: context.h(uiSize.height),
+                  child: Column(
+                    children: [
+                      ValueListenableBuilder<int>(
+                        valueListenable: buildCountNotifier,
+                        builder: (_, count, _) => Text('Built count: $count'),
+                      ),
+                      TextField(key: textFieldKey, focusNode: focusNode),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
-    ));
+    );
 
     // await tester.pumpAndSettle();
     expect(buildCountNotifier.value, 1);
