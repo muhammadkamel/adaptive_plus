@@ -25,16 +25,15 @@ class ScreenUtilOptions {
     ScreenUtilScaleStrategy? paddingScaleStrategy,
     ScreenUtilScaleStrategy? widthScaleStrategy,
     ScreenUtilScaleStrategy? heightScaleStrategy,
-  })  : fontFactorByWidth = fontFactorByWidth ?? 1.0,
-        fontFactorByHeight = fontFactorByHeight ?? 1.0,
-        minTextScale = minTextScale ?? 0.2,
-        maxTextScale = maxTextScale ?? 4.0,
-        flipSizeWhenLandscape = flipSizeWhenLandscape ?? false,
-        fontScaleStrategy = fontScaleStrategy ?? ScreenUtilScaleStrategy.width,
-        paddingScaleStrategy =
-            paddingScaleStrategy ?? ScreenUtilScaleStrategy.width,
-        widthScaleStrategy =
-            widthScaleStrategy ?? ScreenUtilScaleStrategy.width,
-        heightScaleStrategy =
-            heightScaleStrategy ?? ScreenUtilScaleStrategy.height;
+  }) : fontFactorByWidth = fontFactorByWidth ?? 1.0,
+       fontFactorByHeight = fontFactorByHeight ?? 1.0,
+       minTextScale = minTextScale ?? 0.2,
+       maxTextScale = maxTextScale ?? 4.0,
+       flipSizeWhenLandscape = flipSizeWhenLandscape ?? false,
+       fontScaleStrategy = fontScaleStrategy ?? ScreenUtilScaleStrategy.width,
+       paddingScaleStrategy =
+           paddingScaleStrategy ?? ScreenUtilScaleStrategy.width,
+       widthScaleStrategy = widthScaleStrategy ?? ScreenUtilScaleStrategy.width,
+       heightScaleStrategy =
+           heightScaleStrategy ?? ScreenUtilScaleStrategy.height;
 }

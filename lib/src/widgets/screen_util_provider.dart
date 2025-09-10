@@ -2,20 +2,10 @@ import 'package:flutter/widgets.dart';
 
 import '../models/data.dart';
 
-enum _ScreenUtilProviderAspect {
-  font,
-  width,
-  height,
-  radius,
-  inset,
-}
+enum _ScreenUtilProviderAspect { font, width, height, radius, inset }
 
 class ScreenUtilProvider extends InheritedModel<_ScreenUtilProviderAspect> {
-  ScreenUtilProvider({
-    super.key,
-    required this.data,
-    required super.child,
-  });
+  ScreenUtilProvider({super.key, required this.data, required super.child});
 
   final ScreenUtilData data;
 
@@ -55,7 +45,6 @@ class ScreenUtilProvider extends InheritedModel<_ScreenUtilProviderAspect> {
 
   static double widthScaleOf(BuildContext context) {
     final widthScale = _of(context, _ScreenUtilProviderAspect.width).widthScale;
-    print('widthScaleOf: $widthScale');
     return widthScale;
   }
 

@@ -19,16 +19,19 @@ class ScreenUtilData {
     double? heightScale,
     double? paddingScale,
     double? radiusScale,
-  })  : this.fontSizeScale =
-            fontSizeScale == null || fontSizeScale <= 0 ? 1 : fontSizeScale,
-        this.widthScale =
-            widthScale == null || widthScale <= 0 ? 1 : widthScale,
-        this.heightScale =
-            heightScale == null || heightScale <= 0 ? 1 : heightScale,
-        this.insetScale =
-            paddingScale == null || paddingScale <= 0 ? 1 : paddingScale,
-        this.radiusScale =
-            radiusScale == null || radiusScale <= 0 ? 1 : radiusScale;
+  }) : this.fontSizeScale = fontSizeScale == null || fontSizeScale <= 0
+           ? 1
+           : fontSizeScale,
+       this.widthScale = widthScale == null || widthScale <= 0 ? 1 : widthScale,
+       this.heightScale = heightScale == null || heightScale <= 0
+           ? 1
+           : heightScale,
+       this.insetScale = paddingScale == null || paddingScale <= 0
+           ? 1
+           : paddingScale,
+       this.radiusScale = radiusScale == null || radiusScale <= 0
+           ? 1
+           : radiusScale;
 
   factory ScreenUtilData.from({
     required Size screenSize,
@@ -72,12 +75,12 @@ class ScreenUtilData {
 
   @override
   int get hashCode => Object.hash(
-        fontSizeScale,
-        widthScale,
-        heightScale,
-        insetScale,
-        radiusScale,
-      );
+    fontSizeScale,
+    widthScale,
+    heightScale,
+    insetScale,
+    radiusScale,
+  );
 
   @override
   bool operator ==(Object other) {

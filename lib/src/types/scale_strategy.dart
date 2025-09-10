@@ -1,5 +1,1 @@
-enum ScreenUtilScaleStrategy {
-  width,
-  height,
-  both,
-}
+enum ScreenUtilScaleStrategy { width, height, both }

@@ -8,8 +8,14 @@ class RStatelessElement extends ComponentElement {
   @override
   Widget build() {
     final data = ScreenUtilProvider.of(this);
-    return (widget as RStatelessWidget)
-        .build(this, data.sp, data.w, data.h, data.r, data.i);
+    return (widget as RStatelessWidget).build(
+      this,
+      data.sp,
+      data.w,
+      data.h,
+      data.r,
+      data.i,
+    );
   }
 }
 
@@ -46,15 +52,10 @@ class MyStatelessWidget extends RStatelessWidget {
     return Container(
       width: w(100),
       height: h(100),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(r(10)),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(r(10))),
       margin: EdgeInsets.all(i(10)),
       child: Center(
-        child: Text(
-          'Hello World',
-          style: TextStyle(fontSize: sp(16)),
-        ),
+        child: Text('Hello World', style: TextStyle(fontSize: sp(16))),
       ),
     );
   }
@@ -68,12 +69,7 @@ class MyStatelessWidget extends RStatelessWidget {
 }
 
 class RSizedBox extends SizedBox {
-  const RSizedBox({
-    super.key,
-    super.width,
-    super.height,
-    super.child,
-  });
+  const RSizedBox({super.key, super.width, super.height, super.child});
 
   @override
   RenderConstrainedBox createRenderObject(BuildContext context) {
@@ -91,11 +87,7 @@ class RSizedBox extends SizedBox {
 }
 
 class RPadding extends Padding {
-  const RPadding({
-    super.key,
-    required super.padding,
-    super.child,
-  });
+  const RPadding({super.key, required super.padding, super.child});
 
   @override
   RenderPadding createRenderObject(BuildContext context) {

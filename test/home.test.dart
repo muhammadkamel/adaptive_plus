@@ -1,11 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class WidgetTest extends StatelessWidget {
-  const WidgetTest({
-    super.key,
-    this.width = _zero,
-    this.height = _zero,
-  });
+  const WidgetTest({super.key, this.width = _zero, this.height = _zero});
 
   final double Function() width;
   final double Function() height;

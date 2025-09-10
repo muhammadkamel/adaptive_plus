@@ -8,25 +8,13 @@ import '../types/scale_strategy.dart';
 abstract class ScreenUtilScaler {
   const ScreenUtilScaler();
 
-  double getFontScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  );
+  double getFontScaleFactor(ScreenUtilView view, ScreenUtilOptions options);
 
-  double getWidthScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  );
+  double getWidthScaleFactor(ScreenUtilView view, ScreenUtilOptions options);
 
-  double getHeightScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  );
+  double getHeightScaleFactor(ScreenUtilView view, ScreenUtilOptions options);
 
-  double getPaddingScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  );
+  double getPaddingScaleFactor(ScreenUtilView view, ScreenUtilOptions options);
 }
 
 class ScreenUtilPassthroughScaler extends ScreenUtilScaler {
@@ -50,8 +38,10 @@ class DefaultScreenUtilScaler implements ScreenUtilScaler {
 
   Size getScreenSize(ScreenUtilView view, bool flipSizeWhenLandscape) {
     if (flipSizeWhenLandscape &&
-        [TargetPlatform.android, TargetPlatform.iOS]
-            .contains(defaultTargetPlatform) &&
+        [
+          TargetPlatform.android,
+          TargetPlatform.iOS,
+        ].contains(defaultTargetPlatform) &&
         view.orientation == Orientation.landscape) {
       return Size(view.height, view.width);
     }
@@ -59,10 +49,7 @@ class DefaultScreenUtilScaler implements ScreenUtilScaler {
   }
 
   @override
-  double getFontScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  ) {
+  double getFontScaleFactor(ScreenUtilView view, ScreenUtilOptions options) {
     final screenSize = getScreenSize(view, options.flipSizeWhenLandscape);
 
     final widthFactor = screenSize.width / options.designSize.width;
@@ -84,28 +71,19 @@ class DefaultScreenUtilScaler implements ScreenUtilScaler {
   }
 
   @override
-  double getWidthScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  ) {
+  double getWidthScaleFactor(ScreenUtilView view, ScreenUtilOptions options) {
     final screenSize = getScreenSize(view, options.flipSizeWhenLandscape);
     return screenSize.width / options.designSize.width;
   }
 
   @override
-  double getHeightScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  ) {
+  double getHeightScaleFactor(ScreenUtilView view, ScreenUtilOptions options) {
     final screenSize = getScreenSize(view, options.flipSizeWhenLandscape);
     return screenSize.height / options.designSize.height;
   }
 
   @override
-  double getPaddingScaleFactor(
-    ScreenUtilView view,
-    ScreenUtilOptions options,
-  ) {
+  double getPaddingScaleFactor(ScreenUtilView view, ScreenUtilOptions options) {
     final screenSize = getScreenSize(view, options.flipSizeWhenLandscape);
 
     final widthFactor = screenSize.width / options.designSize.width;

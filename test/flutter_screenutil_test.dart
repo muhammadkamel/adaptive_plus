@@ -41,14 +41,18 @@ void main() {
 
   group('[Test overflow]', () {
     testWidgets('Test overflow width', (tester) async {
-      await tester.pumpWidget(ScreenUtil(
-        options: ScreenUtilOptions(designSize: uiSize),
-        child: Builder(builder: (context) {
-          return MaterialApp(
-            home: WidgetTest(width: () => context.w(uiSize.width)),
-          );
-        }),
-      ));
+      await tester.pumpWidget(
+        ScreenUtil(
+          options: ScreenUtilOptions(designSize: uiSize),
+          child: Builder(
+            builder: (context) {
+              return MaterialApp(
+                home: WidgetTest(width: () => context.w(uiSize.width)),
+              );
+            },
+          ),
+        ),
+      );
 
       // Wait until all widget rendered
       // await tester.pumpAndSettle();
@@ -58,14 +62,18 @@ void main() {
     });
 
     testWidgets('Test overflow height', (tester) async {
-      await tester.pumpWidget(ScreenUtil(
-        options: ScreenUtilOptions(designSize: uiSize),
-        child: Builder(builder: (context) {
-          return MaterialApp(
-            home: WidgetTest(height: () => context.h(uiSize.height)),
-          );
-        }),
-      ));
+      await tester.pumpWidget(
+        ScreenUtil(
+          options: ScreenUtilOptions(designSize: uiSize),
+          child: Builder(
+            builder: (context) {
+              return MaterialApp(
+                home: WidgetTest(height: () => context.h(uiSize.height)),
+              );
+            },
+          ),
+        ),
+      );
 
       // Wait until all widget rendered
       // await tester.pumpAndSettle();
@@ -82,40 +90,39 @@ void main() {
 
     Finder textField() => find.byKey(textFieldKey);
 
-    await tester.pumpWidget(ScreenUtil(
-      options: ScreenUtilOptions(designSize: uiSize),
-      child: MaterialApp(
-        home: Scaffold(
-          body: Builder(
-            builder: (context) {
-              buildCountNotifier.value += 1;
+    await tester.pumpWidget(
+      ScreenUtil(
+        options: ScreenUtilOptions(designSize: uiSize),
+        child: MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) {
+                buildCountNotifier.value += 1;
 
-              assert(
-                context.w(uiSize.width) == MediaQuery.of(context).size.width,
-                'ScreenUtil width must be equal to MediaQuery width',
-              );
+                assert(
+                  context.w(uiSize.width) == MediaQuery.of(context).size.width,
+                  'ScreenUtil width must be equal to MediaQuery width',
+                );
 
-              return SizedBox(
-                width: context.w(uiSize.width),
-                height: context.h(uiSize.height),
-                child: Column(
-                  children: [
-                    ValueListenableBuilder<int>(
-                      valueListenable: buildCountNotifier,
-                      builder: (_, count, __) => Text('Built count: $count'),
-                    ),
-                    TextField(
-                      key: textFieldKey,
-                      focusNode: focusNode,
-                    ),
-                  ],
-                ),
-              );
-            },
+                return SizedBox(
+                  width: context.w(uiSize.width),
+                  height: context.h(uiSize.height),
+                  child: Column(
+                    children: [
+                      ValueListenableBuilder<int>(
+                        valueListenable: buildCountNotifier,
+                        builder: (_, count, __) => Text('Built count: $count'),
+                      ),
+                      TextField(key: textFieldKey, focusNode: focusNode),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
-    ));
+    );
 
     // await tester.pumpAndSettle();
     expect(buildCountNotifier.value, 1);

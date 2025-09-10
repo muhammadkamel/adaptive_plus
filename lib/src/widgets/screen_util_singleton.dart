@@ -12,7 +12,8 @@ abstract class ScreenUtilKeyProvider {
 
   static GlobalObjectKey<_ScreenUtilSingletonState> get key {
     return _key ??= const GlobalObjectKey<_ScreenUtilSingletonState>(
-        'screen_adaptive_plus_key');
+      'screen_adaptive_plus_key',
+    );
   }
 }
 
@@ -105,9 +106,6 @@ class _ScreenUtilSingletonState extends State<_ScreenUtilSingleton> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilProvider(
-      data: _data,
-      child: widget.child,
-    );
+    return ScreenUtilProvider(data: _data, child: widget.child);
   }
 }

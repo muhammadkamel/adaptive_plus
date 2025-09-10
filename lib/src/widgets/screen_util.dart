@@ -57,9 +57,6 @@ class _ScreenUtilState extends State<ScreenUtil> {
       scaler: widget.scaler,
     );
 
-    return ScreenUtilProvider(
-      data: screenUtilData,
-      child: widget.child,
-    );
+    return ScreenUtilProvider(data: screenUtilData, child: widget.child);
   }
 }
